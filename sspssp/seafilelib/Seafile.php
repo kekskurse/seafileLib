@@ -7,7 +7,7 @@ class Seafile
 	private $pw = NULL;
 	public function __construct()
 	{
-		$this->curl = new anlutro\cURL\cURL;
+		$this->curl = new \anlutro\cURL\cURL;
 	}
 	public function setServer($server)
 	{
@@ -18,10 +18,61 @@ class Seafile
 		$this->user = $user;
 		$this->pw = $pw;
 	}
+	public function getAuthToken()
+	{
+		if($this->user==Null OR $this->pw ==NULL)
+		{
+			trigger_error("Username or Password is NULL");
+		}
+		$r = $this->curl->post($this->server.'/api2/auth-token/', ["username"=>$this->user, "password"=>$this->pw]);
+		if($r->statusCode!=200)
+		{
+			trigger_error("Faild get AuthToken");
+		}
+		$detais = json_decode($r->body, true);
+		$this->token = $detais["token"];
+		return $this->token;
+		#var_dump($r->body);
+	}
+	public function setAuthToken($token)
+	{
+		$this->token = $token;
+	}
+	public function getLokalToken()
+	{
+		return $this->token;
+	}
 	public function ping()
 	{
-		$r = $this->curl->get('http://seafile.byte.gs/api2/ping/');
-		var_dump($r);
+		$r = $this->curl->get($this->server.'/api2/ping/');
+		if($r->statusCode!=200)
+		{
+			return false;
+		}
+		if($r->body=='"pong"')
+		{
+			return true;
+		}
+		return false;
+	}
+	public function authPing()
+	{
+		if(!isset($this->token))
+		{
+			return false;
+		}
+		$r = $this->curl->newRequest('get', $this->server.'/api2/auth/ping/', [])
+    	->setHeader('Authorization', 'Token '.$this->token)
+    	->send();
+    	if($r->statusCode!=200)
+		{
+			return false;
+		}
+		if($r->body=='"pong"')
+		{
+			return true;
+		}
+		return false;
 	}
 }
 ?>
