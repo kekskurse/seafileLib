@@ -1,0 +1,19 @@
+{
+    "name": "sspssp/seafilelib",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Soeren Siegismund-Poschmann",
+            "email": "soeren@siegismund-poschmann.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "anlutro/curl": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "sspssp\\seafilelib\\": ""
+        }
+    }
+}
