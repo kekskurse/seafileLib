@@ -1,5 +1,5 @@
 <?php
-namespace sspssp/seafilelib;
+namespace sspssp\seafilelib;
 class Seafile
 {
 	private $server = NULL;
