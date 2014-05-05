@@ -82,7 +82,7 @@ class Seafile
 			$request->setHeader('Authorization', 'Token '.$this->token);
 		}
 		$r = $request->send();
-		var_dump($r);
+		#var_dump($r);
 		if(!($r->statusCode==200||$r->statusCode==201))
 		{
 			return false;

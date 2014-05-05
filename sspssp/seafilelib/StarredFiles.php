@@ -30,5 +30,6 @@ class StarredFiles()
 		}
 		return false;
 	}
+	
 }
 ?>
