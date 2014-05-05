@@ -14,7 +14,7 @@ class Messages()
 	}
 	public function replay($mail, $message)
 	{
-		$r = $r = $this->sf->sendRequest("post", "/api2/user/msgs/".urlencode($mail)."/", ["message"]=>$message);
+		$r = $r = $this->sf->sendRequest("post", "/api2/user/msgs/".urlencode($mail)."/", ["message"=>$message]);
 		$r = json_decode($r, true);
 		return $r;
 	}
