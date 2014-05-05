@@ -5,7 +5,7 @@ class Seafile
 	private $server = NULL;
 	private $user = NULL;
 	private $pw = NULL;
-	public function __construct()a>y>y
+	public function __construct()
 	{
 		$this->curl = new \anlutro\cURL\cURL;
 	}
