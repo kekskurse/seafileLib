@@ -1,6 +1,6 @@
 <?php
 namespace sspssp\seafilelib;
-class Groups()
+class Groups
 {
 	public function __construct($seafile)
 	{

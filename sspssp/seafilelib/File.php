@@ -1,6 +1,6 @@
 <?php
 namespace sspssp\seafilelib;
-class File()
+class File
 {
 	public function __construct($seafile)
 	{
@@ -80,8 +80,26 @@ class File()
 		$r = json_decode($r, true);
 		return $r;
 	}
-	public function uploadFile($uploadLink)
+	public function uploadFile($uploadLink, $filename, $parent_dir, $file)
 	{
-		$request = $this->sf->curl->newRequest($uploadLink, ["filename"=>"bla.txt", "file"=>"@/home/share/bla.txt", "parent_dir"=>"/",]);
+		/*$request = $this->sf->curl->newRequest("post", $uploadLink, ["filename"=>"bla.txt", "file"=>'@/home/share/bla.txt', "parent_dir"=>"/"]);
+		var_dump($request);
+		$r = $request->send();
+		var_dump($r);*/
+		$file_name_with_full_path = realpath($file);
+		$post = array('filename' => $filename, 'parent_dir' => $parent_dir,'file'=>'@'.$file_name_with_full_path);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL,$uploadLink);
+		curl_setopt($ch, CURLOPT_POST,1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER , true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Token ".$this->sf->getLokalToken()));
+		$result=curl_exec($ch);
+		#$header = curl_getinfo ( $ch );
+		curl_close ($ch);
+		
+		#var_dump($header);
+		#var_dump($result);
+		return $result;
 	}
 }

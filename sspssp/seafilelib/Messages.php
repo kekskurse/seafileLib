@@ -1,6 +1,6 @@
 <?php
 namespace sspssp\seafilelib;
-class Messages()
+class Messages
 {
 	public function __construct($seafile)
 	{

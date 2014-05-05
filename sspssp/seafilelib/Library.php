@@ -1,6 +1,6 @@
 <?php
 namespace sspssp\seafilelib;
-class Library()
+class Library
 {
 	public function __construct($seafile)
 	{

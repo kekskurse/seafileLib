@@ -1,6 +1,6 @@
 <?php
 namespace sspssp\seafilelib;
-class StarredFiles()
+class StarredFiles
 {
 	public function __construct($seafile)
 	{
