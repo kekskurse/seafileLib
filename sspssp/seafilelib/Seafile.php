@@ -83,7 +83,7 @@ class Seafile
 		}
 		$r = $request->send();
 		#var_dump($r);
-		if(!($r->statusCode==200||$r->statusCode==201))
+		if(!($r->statusCode==200||$r->statusCode==201||$r->statusCode==301))
 		{
 			return false;
 		}
