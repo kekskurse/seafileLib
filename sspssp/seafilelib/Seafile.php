@@ -62,9 +62,9 @@ class Seafile
 			return false;
 		}
 		$r = $this->curl->newRequest('get', $this->server.'/api2/auth/ping/', [])
-    	->setHeader('Authorization', 'Token '.$this->token)
-    	->send();
-    	if($r->statusCode!=200)
+		->setHeader('Authorization', 'Token '.$this->token)
+		->send();
+		if($r->statusCode!=200)
 		{
 			return false;
 		}
@@ -73,6 +73,25 @@ class Seafile
 			return true;
 		}
 		return false;
+	}
+	public function sendRequest($typ, $url, $param = [], $returnObject = false)
+	{
+		$request = $this->curl->newRequest($typ, $this->server.$url, $param);
+		if(isset($this->token)&&!empty($this->token)&&$this->token!==false)
+		{
+			$request->setHeader('Authorization', 'Token '.$this->token);
+		}
+		$r = $request->send();
+		var_dump($r);
+		if(!($r->statusCode==200||$r->statusCode==201))
+		{
+			return false;
+		}
+		if($returnObject)
+		{
+			return $r;
+		}
+		return $r->body;
 	}
 }
 ?>
